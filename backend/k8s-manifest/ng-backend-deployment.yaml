@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: ng-frontend
-  name: ng-frontend
+    app: ng-backend
+  name: ng-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ng-frontend-pod
+      app: ng-backend-pod
   template:
     metadata:
       labels:
-        app: ng-frontend-pod
+        app: ng-backend-pod
     spec:
       containers:
-        - name: ng-frontend
-          image: stmum0107/ngclient:v1
+        - name: ng-backend
+          image: stmum0107/ngserver:v1
           ports:
             - containerPort: 80
           resources: {}

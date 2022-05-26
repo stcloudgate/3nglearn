@@ -8,7 +8,23 @@ COPY . /3nglearn
 RUN npm run build --prod
 #CMD ng serve --host 0.0.0.0:4200
 
-#FROM nginx:1.20.1
-FROM nginx:latest
+#FROM nginx:1.17.1
+FROM nginx:1.17.1-alpine
+
+# Clean nginx
+RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build-step /3nglearn/dist/3nglearn /usr/share/nginx/html
-EXPOSE 4200:80
+
+COPY ./k8s-manifest/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /usr/share/nginx/html
+
+# Permission
+RUN chown root /usr/share/nginx/html/*
+RUN chmod 755 /usr/share/nginx/html/*
+
+# Expose port
+EXPOSE 3000
+
+# Start
+CMD ["nginx", "-g", "daemon off;"]
+
