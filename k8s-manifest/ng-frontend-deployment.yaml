@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: ng-frontend
+  name: ng-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ng-frontend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: ng-frontend
+    spec:
+      containers:
+        - name: ng-frontend
+          image: stmum0107/ngclient:latest
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}
