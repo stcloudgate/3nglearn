@@ -8,17 +8,17 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ng-backend-pod
+      app: ng-backend
   template:
     metadata:
       labels:
-        app: ng-backend-pod
+        app: ng-backend
     spec:
       containers:
         - name: ng-backend
-          image: stmum0107/ngserver:v1
+          image: stmum0107/ngserver:v3
           ports:
-            - containerPort: 80
+            - containerPort: 3002
           resources: {}
       restartPolicy: Always
 status: {}

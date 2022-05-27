@@ -5,5 +5,5 @@ COPY package*.json /3nglearn
 RUN npm install
 RUN npm ci --only=production
 COPY . .
-EXPOSE 3000
+EXPOSE 3002
 CMD [ "node", "server.js" ]

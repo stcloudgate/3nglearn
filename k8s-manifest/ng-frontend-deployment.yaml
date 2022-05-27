@@ -8,17 +8,17 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ng-frontend-pod
+      app: ng-frontend
   template:
     metadata:
       labels:
-        app: ng-frontend-pod
+        app: ng-frontend
     spec:
       containers:
         - name: ng-frontend
-          image: stmum0107/ngclient:v1
+          image: stmum0107/ngclient:v3
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           resources: {}
       restartPolicy: Always
 status: {}
