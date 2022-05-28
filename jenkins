@@ -31,7 +31,7 @@ node {
               //sh "git push https://${GIT_USER}:${GIT_PWD}@github.com/${GIT_USER}/3nglearn.git} HEAD:main"
               //sh "git push https://github.com/${GIT_USER}/3nglearn.git}"
 
-              sh "git remote set-url origin https://github.com/${GIT_USER}/3nglearn.git}  HEAD:main"
+              sh "git remote set-url origin https://github.com/${GIT_USER}/3nglearn.git}"
               sh "git push --force --set-upstream origin master"
           }
         }
