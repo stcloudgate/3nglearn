@@ -1,0 +1,50 @@
+node {
+
+    def imgbase
+    imgbase = "(*IMAGE*)"
+
+    def imgname
+    imgname = "stmum0107/ngclient:${env.BUILD_NUMBER}"
+
+    stage('Clone repository') {
+        //git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
+        checkout scm
+    }
+
+    stage('Build image') {
+      sh "docker build -t ${imgname} ."
+    }
+
+    stage('Push image') {
+      withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
+         sh "docker login -u stmum0107 -p ${dockerHubPwd}"
+      }
+      sh "docker push ${imgname}"
+    }
+
+    stage('Update manifestfiles') {
+      script{
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USER')]) {
+              sh "git config user.email stcloudgate@gmail.com"
+              sh "git config user.name Sanjeev Tiwari"
+              sh "echo 'Setting the image name in deployment.yaml'"
+              //sh 'sed -i "s+${imgbase}.*+${imgname}+g" deployment.yaml'
+              sh "sed -e 's+${imgbase}.*+${imgname}+g' deployment.yaml"
+              sh "cp -f deployment.yaml ./k8s-manifest/deployment.yaml"
+              sh "echo 'git add command'"
+              sh "git add -A ."
+              sh "git commit -m 'done by jenkins build job: ${env.BUILD_NUMBER}'"
+              sh "git remote -v"
+              sh "git push --force --set-upstream origin master"
+          }
+        }
+      }
+    }
+}
+
+
+
+
+
+
