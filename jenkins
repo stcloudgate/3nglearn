@@ -1,7 +1,7 @@
 node {
 
     def imgbase
-    imgbase = "${IMAGE}"
+    imgbase = "(*IMAGE*)"
 
     def imgname
     imgname = "stmum0107/ngclient:${env.BUILD_NUMBER}"
