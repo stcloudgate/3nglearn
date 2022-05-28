@@ -1,10 +1,14 @@
 node {
 
+    def imgbase
+    imgbase = "stmum0107/ngclient:"
+
     def imgname
     imgname = "stmum0107/ngclient:${env.BUILD_NUMBER}"
 
     stage('Clone repository') {
-        git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
+        //git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
+        checkout scm
     }
 
     stage('Build image') {
@@ -18,9 +22,28 @@ node {
       sh "docker push ${imgname}"
     }
 
-    //stage('Trigger ManifestUpdate') {
-      //echo "triggering updatemanifestjob - to be coded"
-      //build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-    //}
+    stage('Update manifestfiles') {
+      script{
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USER')]) {
+              sh "git config user.email = stcloudgate@gmail.com"
+              sh "git config user.name = Sanjeev Tiwari"
+              sh "cd ./k8s-manifest"
+              sh "cat deployment.yaml"
+              sh "sed -i ''s+${imgbase}.*+${imgname}+g' deployment.yaml"
+              sh "cat deployment.yaml"
+              sh "cd ../"
+              sh "git add ."
+              sh "git commit -m 'done by jenkins build job: ${env.BUILD_NUMBER}'"
+              sh "git push https://${GIT_USER}:${GIT_PWD}@github.com/${GIT_USER/3nglearn.git} HEAD:main"
+          }
+        }
+      }
+    }
 }
+
+
+
+
+
 
