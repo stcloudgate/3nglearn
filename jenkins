@@ -26,8 +26,8 @@ node {
       script{
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USER')]) {
-              sh "git config user.email = stcloudgate@gmail.com"
-              sh "git config user.name = Sanjeev Tiwari"
+              sh "git config --global user.email stcloudgate@gmail.com"
+              sh "git config --blobal user.name Sanjeev Tiwari"
               sh "cd ./k8s-manifest"
               sh "cat deployment.yaml"
               sh "sed -i ''s+${imgbase}.*+${imgname}+g' deployment.yaml"
