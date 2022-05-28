@@ -12,11 +12,11 @@ node {
     }
 
     stage('Push image') {
-      //withCredentials([usernameColonPassword(credentialsId: 'docker', variable: 'dockerhub')]) {
-      //  sh 'docker login -u stmum0107 -p ${dockerhub}'
-      //}
+      withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
+         sh "docker login -u stmum0107 -p ${dockerHubPwd}"
+      }
       sh "docker push ${imgname}"
-}
+    }
 
     //stage('Trigger ManifestUpdate') {
       //echo "triggering updatemanifestjob - to be coded"
