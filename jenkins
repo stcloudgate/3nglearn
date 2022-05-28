@@ -1,7 +1,7 @@
 node {
 
     def imgbase
-    imgbase = "stmum0107/ngclient:"
+    imgbase = "${IMAGE}"
 
     def imgname
     imgname = "stmum0107/ngclient:${env.BUILD_NUMBER}"
@@ -20,9 +20,10 @@ node {
               sh "cd ./k8s-manifest"
               sh "pwd"
               sh "echo 'start to edit'"
-              sh "sed -i 's+${imgbase}.*+${imgname}+g' deployment.yaml"
-              sh 'echo "moving to ./k8s-manifest folder"'
-              sh "cp -f deployment.yaml ./k8s-manifest/deployment.yaml"
+              sh "sed -e 's+${imgbase}.*+${imgname}+g' deployment.yaml > .k8s-manifest/deployment.yaml"
+              //sh "sed -i 's+${imgbase}.*+${imgname}+g' deployment.yaml"
+              //sh 'echo "moving to ./k8s-manifest folder"'
+              //sh "cp -f deployment.yaml ./k8s-manifest/deployment.yaml"
               sh "git add ."
               sh "git commit -m 'done by jenkins build job: ${env.BUILD_NUMBER}'"
               sh "git push https://${GIT_USER}:${GIT_PWD}@github.com/${GIT_USER}/3nglearn.git} HEAD:main"

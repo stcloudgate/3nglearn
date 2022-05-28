@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ng-backend
-          image: stmum0107/ngserver:v1
+          image: ${IMAGE}
           ports:
             - containerPort: 3000
           resources: {}
