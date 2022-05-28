@@ -14,6 +14,7 @@ node {
     stage('Update manifestfiles') {
       script{
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          //withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USER')]) {
           withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USER')]) {
               sh "git config user.email stcloudgate@gmail.com"
               sh "git config user.name Sanjeev Tiwari"
