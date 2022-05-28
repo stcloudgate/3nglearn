@@ -1,7 +1,6 @@
 How to use
 ----------
 
-this text is to be customisd
 
 Run "npm install" inside this project folder to install all dependencies.
 
