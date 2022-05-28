@@ -7,8 +7,16 @@ node {
     }
 
     stage('Build image') {
-       sh 'docker build -t stmum0107/ngclient:v1 .'
+       sh 'docker build -t stmum0107/ngclient:${env.BUILD_NUMBER} .'
     }
 
+    stage('Push image') {
+      sh 'docker push stmum0107/ngclient:${env.BUILD_NUMBER}'
+    }
+
+    //stage('Trigger ManifestUpdate') {
+      //echo "triggering updatemanifestjob - to be coded"
+      //build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+    //}
 }
 
