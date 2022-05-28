@@ -20,7 +20,7 @@ node {
               sh "cd ./k8s-manifest"
               sh "pwd"
               sh "echo 'start to edit'"
-              sh "sed -e 's+${imgbase}.*+${imgname}+g' deployment.yaml > .k8s-manifest/deployment.yaml"
+              sh "sed -e 's+${imgbase}.*+${imgname}+g' deployment.yaml > ./k8s-manifest/deployment.yaml"
               //sh "sed -i 's+${imgbase}.*+${imgname}+g' deployment.yaml"
               //sh 'echo "moving to ./k8s-manifest folder"'
               //sh "cp -f deployment.yaml ./k8s-manifest/deployment.yaml"
