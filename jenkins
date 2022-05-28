@@ -29,8 +29,11 @@ node {
               sh "git config user.email stcloudgate@gmail.com"
               sh "git config user.name Sanjeev Tiwari"
               //sh "cd ./k8s-manifest"
-              sh "cat ./k8s-manifest/deployment.yaml"
-              sh "sed -i 's+${imgbase}.*+${imgname}+g' ./k8s-manifest/deployment.yaml"
+              //sh "cat ./k8s-manifest/deployment.yaml"
+              sh 'pwd'
+              sh 'echo "start to edit"'
+              sh "sed -i 's+${imgbase}.*+${imgname}+g' deployment.yaml"
+              sh 'echo "finished editing"'
               sh "cat ./k8s-manifest/deployment.yaml"
               //sh "cd ../"
               sh "git add ."
