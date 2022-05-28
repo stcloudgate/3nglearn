@@ -32,7 +32,7 @@ node {
               //sh "git push https://github.com/${GIT_USER}/3nglearn.git}"
               //sh "git remote add origin https://github.com/${GIT_USER}/3nglearn.git}"
 
-              sh "git remover -v"
+              sh "git remote -v"
               //sh "git remote set-url origin https://github.com/${GIT_USER}/3nglearn.git}"
               sh "git push --force --set-upstream origin master"
           }
