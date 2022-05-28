@@ -7,11 +7,11 @@ node {
     }
 
     stage('Build image') {
-       sh 'docker build -t stmum0107/ngclient:${env.BUILD_NUMBER} .'
+       sh 'docker build -t stmum0107/ngclient:"${env.BUILD_NUMBER}" .'
     }
 
     stage('Push image') {
-      sh 'docker push stmum0107/ngclient:${env.BUILD_NUMBER}'
+      sh 'docker push stmum0107/ngclient:"${env.BUILD_NUMBER}"'
     }
 
     //stage('Trigger ManifestUpdate') {
