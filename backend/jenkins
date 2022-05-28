@@ -1,29 +1,26 @@
-pipeline {
+node {
 
-  agent any
+    def imgname
+    imgname = "stmum0107/ngserver:${env.BUILD_NUMBER}"
 
-  options {
-
-    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
-
-  }
-
-  stages {
-
-    stage('Hello') {
-
-      steps {
-
-        sh '''
-
-          java -version
-
-        '''
-
-      }
-
+    stage('Clone repository') {
+        git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
     }
 
-  }
+    stage('Build image') {
+      sh 'cd ./backend'
+      sh "docker build -t ${imgname} ."
+    }
 
+    stage('Push image') {
+      withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
+         sh "docker login -u stmum0107 -p ${dockerHubPwd}"
+      }
+      sh "docker push ${imgname}"
+    }
+
+    //stage('Trigger ManifestUpdate') {
+      //echo "triggering updatemanifestjob - to be coded"
+      //build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+    //}
 }
