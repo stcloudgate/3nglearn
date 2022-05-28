@@ -1,6 +1,6 @@
 node {
 
-    def imgname "stmum0107/ngclient:${env.BUILD_NUMBER}"
+    def imgname "stmum0107/ngclient:" ${env.BUILD_NUMBER}
 
     stage('Clone repository') {
         git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
