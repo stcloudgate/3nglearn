@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ng-frontend
+  name: ng-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ng-frontend
+  template:
+    metadata:
+      labels:
+        app: ng-frontend
+    spec:
+      containers:
+        - name: ng-frontend
+          image: stmum0107/ngclient:something
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    svc: ng-svc-frontend
+  name: ng-svc-frontend
+spec:
+  ports:
+    - name: "angular-frontend-port"
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: ng-frontend
+status:
+  loadBalancer: {}
+
+

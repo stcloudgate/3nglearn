@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ngapp-full
+  name: ngapp-full
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngapp
+  template:
+    metadata:
+      labels:
+        app: ngapp
+    spec:
+      containers:
+        - name: ngapp
+          image: stmum0107/ngdemo:full
+          ports:
+            - containerPort: 3080
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    svc: svc-ngapp-full
+  name: svc-ngapp-full
+spec:
+  ports:
+    - name: "ngapp-port"
+      protocol: TCP
+      port: 3080
+      targetPort: 3080
+  selector:
+    app: ngapp-full
+status:
+  loadBalancer: {}
