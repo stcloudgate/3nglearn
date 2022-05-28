@@ -3,7 +3,12 @@ node {
     def app
 
     stage('Clone repository') {
-        checkout scm
+        git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
     }
+
+    stage('Build image') {
+       sh 'docker build -t stmum0107/ngclient:v1 .'
+    }
+
 }
 
