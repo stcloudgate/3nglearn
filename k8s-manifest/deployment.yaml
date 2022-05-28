@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ng-frontend
-          image: (*IMAGE*)
+          image: some-image-front
           ports:
             - containerPort: 80
           resources: {}
