@@ -12,9 +12,9 @@ node {
     }
 
     stage('Push image') {
-      withCredentials([usernameColonPassword(credentialsId: 'docker', variable: 'dockerhub')]) {
-        sh 'docker login -u stmum0107 -p ${dockerhub}'
-      }
+      //withCredentials([usernameColonPassword(credentialsId: 'docker', variable: 'dockerhub')]) {
+      //  sh 'docker login -u stmum0107 -p ${dockerhub}'
+      //}
       sh "docker push ${imgname}"
 }
 
