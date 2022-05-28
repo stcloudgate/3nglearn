@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: ng-backend
-          image: stmum0107/ngserver:v3
+          image: stmum0107/ngserver:v1
           ports:
-            - containerPort: 3002
+            - containerPort: 3000
           resources: {}
       restartPolicy: Always
 status: {}
@@ -29,12 +29,12 @@ kind: Service
 metadata:
   labels:
     svc: ng-svc-backend
-  name: ng-backend
+  name: ng-svc-backend
 spec:
   ports:
     - name: "node-api-port"
       port: 3001
-      targetPort: 3002
+      targetPort: 3000
   selector:
     app: ng-backend
 status:

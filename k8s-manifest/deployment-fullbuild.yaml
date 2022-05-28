@@ -2,42 +2,40 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: ng-frontend
-  name: ng-frontend
+    app: ngapp-full
+  name: ngapp-full
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ng-frontend
+      app: ngapp
   template:
     metadata:
       labels:
-        app: ng-frontend
+        app: ngapp
     spec:
       containers:
-        - name: ng-frontend
-          image: stmum0107/ngclient:v3
+        - name: ngapp
+          image: stmum0107/ngdemo:full
           ports:
-            - containerPort: 3000
+            - containerPort: 3080
           resources: {}
       restartPolicy: Always
 status: {}
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    svc: ng-svc-frontend
-  name: ng-frontend
+    svc: svc-ngapp-full
+  name: svc-ngapp-full
 spec:
   ports:
-    - name: "angular-frontend-port"
+    - name: "ngapp-port"
       protocol: TCP
-      port: 80
-      targetPort: 3000
+      port: 3080
+      targetPort: 3080
   selector:
-    app: ng-frontend
+    app: ngapp-full
 status:
   loadBalancer: {}
-

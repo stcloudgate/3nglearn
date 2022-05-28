@@ -1,7 +1,6 @@
 node {
 
     def app
-    //def docker
 
     stage('Clone repository') {
         checkout scm
