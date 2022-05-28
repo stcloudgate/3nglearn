@@ -17,7 +17,7 @@ node {
           withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PWD', usernameVariable: 'GIT_USER')]) {
               sh "git config user.email stcloudgate@gmail.com"
               sh "git config user.name Sanjeev Tiwari"
-              //sh "cd ./k8s-manifest"
+              sh "cd ./k8s-manifest"
               //sh "cat ./k8s-manifest/deployment.yaml"
               sh 'ls -ltr'
               sh 'echo "start to edit"'
