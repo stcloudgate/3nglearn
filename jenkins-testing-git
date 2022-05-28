@@ -4,22 +4,11 @@ node {
     imgbase = "(*IMAGE*)"
 
     def imgname
-    imgname = "stmum0107/ngserver:${env.BUILD_NUMBER}"
+    imgname = "stmum0107/ngclient:${env.BUILD_NUMBER}"
 
     stage('Clone repository') {
-        //git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
-        checkout scm
-    }
-
-    stage('Build image') {
-      sh "docker build -t ${imgname} ."
-    }
-
-    stage('Push image') {
-      withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
-         sh "docker login -u stmum0107 -p ${dockerHubPwd}"
-      }
-      sh "docker push ${imgname}"
+        git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
+        //checkout scm
     }
 
     stage('Update manifestfiles') {
