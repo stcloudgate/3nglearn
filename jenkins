@@ -11,17 +11,6 @@ node {
         checkout scm
     }
 
-    stage('Build image') {
-      sh "docker build -t ${imgname} ."
-    }
-
-    stage('Push image') {
-      withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
-         sh "docker login -u stmum0107 -p ${dockerHubPwd}"
-      }
-      sh "docker push ${imgname}"
-    }
-
     stage('Update manifestfiles') {
       script{
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -30,7 +19,7 @@ node {
               sh "git config user.name Sanjeev Tiwari"
               //sh "cd ./k8s-manifest"
               //sh "cat ./k8s-manifest/deployment.yaml"
-              sh 'pwd'
+              sh 'ls -ltr'
               sh 'echo "start to edit"'
               sh "sed -i 's+${imgbase}.*+${imgname}+g' deployment.yaml"
               sh 'echo "finished editing"'
