@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ng-frontend
-          image: stmum0107/ngclient:35
+          image: stmum0107/ngclient:36
           ports:
             - containerPort: 80
           resources: {}
