@@ -4,7 +4,7 @@ node {
     imgbase = "(*IMAGE*)"
 
     def imgname
-    imgname = "stmum0107/ngclient:${env.BUILD_NUMBER}"
+    imgname = "stmum0107/ngfrontend:{env.BUILD_NUMBER}"
 
     stage('Clone repository') {
         //git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
@@ -21,7 +21,7 @@ node {
       }
       sh "docker push ${imgname}"
     }
-   
+
     // IF this block is enable for git commit, dont forget ot pull in the code ide everytime you want to edit
     //stage('Update manifestfiles') {
     //  sh "echo 'Setting the image name in deployment.yaml'"
