@@ -18,7 +18,7 @@ spec:
         - name: ng-backend
           image: (*IMAGE*)
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           resources: {}
       restartPolicy: Always
 status: {}
@@ -33,7 +33,7 @@ metadata:
 spec:
   ports:
     - name: "node-api-port"
-      port: 3000
+      port: 80
       targetPort: 80
   selector:
     app: ng-backend
