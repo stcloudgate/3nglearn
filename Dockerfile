@@ -35,7 +35,7 @@ COPY --from=build-step /app/dist/3nglearn /usr/share/nginx/html
 COPY /k8s-manifest/nginx.conf /etc/nginx/conf.d/default.conf
 
 #exposing internal port
-EXPOSE 4200
+EXPOSE 80
 
 # Start
 CMD ["nginx", "-g", "daemon off;"]
