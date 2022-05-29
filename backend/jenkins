@@ -4,7 +4,7 @@ node {
     imgbase = "(*IMAGE*)"
 
     def imgname
-    imgname = "stmum0107/ngbackend:${env.BUILD_NUMBER}"
+    imgname = "stmum0107/ngserver:${env.BUILD_NUMBER}"
 
     stage('Clone repository') {
         //git(credentialsId: 'github', url: 'https://github.com/stcloudgate/3nglearn.git')
